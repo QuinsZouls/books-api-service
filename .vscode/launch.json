@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Dev BOOKS-API",
+            "command": "npm run dev"
+        },
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Start BOOKS-API",
+            "command": "npm run start"
+        },
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Test BOOKS-API",
+            "command": "npm run test"
+        },
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Lint BOOKS-API",
+            "command": "npm run lint"
+        },
+        {
+            "type": "node-terminal",
+            "request": "launch",
+            "name": "Lint:Fix BOOKS-API",
+            "command": "npm run lint:fix"
+        }
+    ]
+}

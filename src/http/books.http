@@ -1,0 +1,52 @@
+# baseURL
+@baseURL = http://localhost:3000
+
+###
+# Find All Books
+GET {{ baseURL }}/books
+
+###
+# Find Book By Id
+GET {{ baseURL }}/books/1
+
+###
+# Create Book
+POST {{ baseURL }}/books
+Content-Type: application/json
+
+{
+    "code": "e762786786x",
+    "title": "book title",
+    "author": "book author",
+    "publish_year": 2001,
+    "publisher": "book publisher",
+    "images": [
+      {
+        "slug": "image-l",
+        "url": "image url",
+      }
+    ]
+}
+
+###
+# Modify Book By Id
+PUT {{ baseURL }}/books/1
+Content-Type: application/json
+
+{
+    "code": "e762786786x",
+    "title": "book title",
+    "author": "book author",
+    "publish_year": 2001,
+    "publisher": "book publisher",
+    "images": [
+      {
+        "slug": "image-l",
+        "url": "image url",
+      }
+    ]
+}
+
+###
+# Delete Book By Id
+DELETE {{ baseURL }}/books/1

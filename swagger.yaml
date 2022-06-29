@@ -1,0 +1,143 @@
+tags:
+- name: books
+  description: books API
+
+paths:
+# [GET] Books
+  /books:
+    get:
+      tags:
+      - books
+      summary: Find All books
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+# [POST] Books
+    post:
+      tags:
+      - books
+      summary: Add Book
+      parameters:
+      - name: body
+        in: body
+        description: Book Data
+        required: true
+        schema:
+          $ref: '#/definitions/books'
+      responses:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [GET] books/id
+  /books/{id}:
+    get:
+      tags:
+      - books
+      summary: Find Book By Id
+      parameters:
+      - name: id
+        in: path
+        description: Book Id
+        required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [PUT] books/id
+    put:
+      tags:
+      - books
+      summary: Update Book By Id
+      parameters:
+      - name: id
+        in: path
+        description: Book Id
+        required: true
+      - name: body
+        in: body
+        description: Book Data
+        required: true
+        schema:
+          $ref: '#/definitions/books'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [DELETE] books/id
+    delete:
+      tags:
+      - books
+      summary: Delete Book By Id
+      parameters:
+      - name: id
+        in: path
+        description: Book Id
+        required: true
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# definitions
+definitions:
+  books:
+    type: object
+    required:
+        - code
+        - title
+        - author
+        - publish_year
+        - publisher
+        - images
+    properties:
+      code:
+        type: string
+        description: Book code
+      title:
+        type: string
+        description: Book title
+      author:
+        type: string
+        description: Book author
+      publish_year:
+        type: string
+        description: Book Published year
+      publisher:
+        type: string
+        description: Book publisher
+      images:
+        type: array
+        items:
+          type: object
+          properties:
+            slug:
+              type: string
+            url:
+              type: string
+        description: Book images
+
+schemes:
+ - https
+ - http
