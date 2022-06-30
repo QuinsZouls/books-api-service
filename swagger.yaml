@@ -3,6 +3,36 @@ tags:
   description: books API
 
 paths:
+# [GET] Authors
+  /authors:
+    get:
+        tags:
+        - authors
+        summary: Find All Authors
+        parameters:
+          - in: query
+            name: $skip
+            schema:
+              type: integer
+            required: false
+            description: Skip author position record
+          - in: query
+            name: $limit
+            schema:
+              type: integer
+            required: false
+            description: Limit number of records
+          - in: query
+            name: _id
+            schema:
+              type: string
+            required: false
+            description: Filter author by name
+        responses:
+          200:
+            description: 'OK'
+          500:
+            description: 'Server Error'
 # [GET] Books
   /books:
     get:
@@ -102,6 +132,15 @@ paths:
 
 # definitions
 definitions:
+  authors:
+    type: object
+    properties:
+      _id:
+        type: string
+        description: author name
+      total:
+        type: number
+        description: number of total books
   books:
     type: object
     required:

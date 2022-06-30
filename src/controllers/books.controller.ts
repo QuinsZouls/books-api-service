@@ -1,16 +1,17 @@
 import { NextFunction, Request, Response } from 'express';
 import { CreateBookDto } from '@dtos/books.dto';
-import { Book } from '@interfaces/books.interface';
 import bookService from '@services/books.service';
+import { Book } from '@interfaces/books.interface';
+import { Response as ResponseInterface } from '@/interfaces/services.interface';
+import { parseQueries } from '@/utils/queries';
 
 class BooksController {
   public bookService = new bookService();
 
   public getBooks = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const findAllBooksData: Book[] = await this.bookService.findAllBooks();
-
-      res.status(200).json({ data: findAllBooksData, message: 'findAll' });
+      const findAllBooksData: ResponseInterface = await this.bookService.findAllBooks(parseQueries(req.query, ['$regex', '$options']));
+      res.status(200).json(findAllBooksData);
     } catch (error) {
       next(error);
     }
@@ -21,7 +22,7 @@ class BooksController {
       const bookId: string = req.params.id;
       const findOneBookData: Book = await this.bookService.findBookById(bookId);
 
-      res.status(200).json({ data: findOneBookData, message: 'findOne' });
+      res.status(200).json(findOneBookData);
     } catch (error) {
       next(error);
     }
@@ -32,7 +33,7 @@ class BooksController {
       const bookData: CreateBookDto = req.body;
       const createBookData: Book = await this.bookService.createBook(bookData);
 
-      res.status(201).json({ data: createBookData, message: 'created' });
+      res.status(201).json(createBookData);
     } catch (error) {
       next(error);
     }
@@ -44,7 +45,7 @@ class BooksController {
       const bookData: CreateBookDto = req.body;
       const updateBookData: Book = await this.bookService.updateBook(bookId, bookData);
 
-      res.status(200).json({ data: updateBookData, message: 'updated' });
+      res.status(200).json({ ...updateBookData, ...bookData });
     } catch (error) {
       next(error);
     }
@@ -55,7 +56,7 @@ class BooksController {
       const bookId: string = req.params.id;
       const deleteBookData: Book = await this.bookService.deleteBook(bookId);
 
-      res.status(200).json({ data: deleteBookData, message: 'deleted' });
+      res.status(200).json(deleteBookData);
     } catch (error) {
       next(error);
     }

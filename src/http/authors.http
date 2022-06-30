@@ -1,0 +1,14 @@
+# baseURL
+@baseURL = http://localhost:3000
+
+###
+# Find All Authors
+GET {{ baseURL }}/authors
+
+###
+# Find Authors by name
+GET {{ baseURL }}/authors?_id[$regex]=Chri&_id[$options]=i
+
+###
+# Sort Authors by books
+GET {{ baseURL }}/authors?$sort[total] = 1
