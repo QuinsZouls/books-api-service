@@ -30,12 +30,27 @@ services:
     depends_on:
       - mongo
   mongo:
-    image: mvertes/alpine-mongo
+    image: mongo:5.0
     container_name: mongo
     ports:
       - '27017:27017'
     networks:
       - backend
+  mongo-seed:
+    container_name: seed
+    build:
+      context: ./seed
+      dockerfile: Dockerfile
+      args:
+          - DATABASE_URI=mongodb://mongo:27017/
+          - DATABASE_NAME=books
+    depends_on:
+        - mongo
+    links:
+      - mongo
+    networks:
+      - backend
+
 
 networks:
   backend:
