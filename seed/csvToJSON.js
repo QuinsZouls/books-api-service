@@ -28,11 +28,11 @@ csvtojsonV2({
           },
           {
             slug: 'image-m',
-            url: book['Image-URL-m'],
+            url: book['Image-URL-M'],
           },
           {
             slug: 'image-l',
-            url: book['Image-URL-l'],
+            url: book['Image-URL-L'],
           },
         ],
       });
