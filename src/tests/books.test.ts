@@ -12,74 +12,79 @@ describe('Testing Books', () => {
   describe('[GET] /books', () => {
     it('response fineAll Books', async () => {
       const booksRoute = new BooksRoute();
+
       const books = booksRoute.booksController.bookService.books;
 
-      books.find = jest.fn().mockReturnValue([
-        {
-          code: 'a',
-          title: 'Classical Mythology',
-          author: 'Mark P. O. Morford',
-          publish_year: 2001,
-          publisher: 'Oxford University Press',
-          images: [
+      books.count = jest.fn().mockReturnValue(3);
+      books.find = jest.fn().mockImplementation(() => ({
+        limit: jest.fn().mockImplementation((...args) => ({
+          skip: jest.fn().mockImplementation((...arg) => [
             {
-              slug: 'image-l',
-              url: 'http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg',
+              code: 'a',
+              title: 'Classical Mythology',
+              author: 'Mark P. O. Morford',
+              publish_year: 2001,
+              publisher: 'Oxford University Press',
+              images: [
+                {
+                  slug: 'image-l',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg',
+                },
+                {
+                  slug: 'image-m',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.MZZZZZZZ.jpg',
+                },
+                {
+                  slug: 'image-s',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg',
+                },
+              ],
             },
             {
-              slug: 'image-m',
-              url: 'http://images.amazon.com/images/P/0195153448.01.MZZZZZZZ.jpg',
+              code: 'b',
+              title: 'Classical Mythology',
+              author: 'Mark P. O. Morford',
+              publish_year: 2001,
+              publisher: 'Oxford University Press',
+              images: [
+                {
+                  slug: 'image-l',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg',
+                },
+                {
+                  slug: 'image-m',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.MZZZZZZZ.jpg',
+                },
+                {
+                  slug: 'image-s',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg',
+                },
+              ],
             },
             {
-              slug: 'image-s',
-              url: 'http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg',
+              code: 'c',
+              title: 'Classical Mythology',
+              author: 'Mark P. O. Morford',
+              publish_year: 2001,
+              publisher: 'Oxford University Press',
+              images: [
+                {
+                  slug: 'image-l',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg',
+                },
+                {
+                  slug: 'image-m',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.MZZZZZZZ.jpg',
+                },
+                {
+                  slug: 'image-s',
+                  url: 'http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg',
+                },
+              ],
             },
-          ],
-        },
-        {
-          code: 'b',
-          title: 'Classical Mythology',
-          author: 'Mark P. O. Morford',
-          publish_year: 2001,
-          publisher: 'Oxford University Press',
-          images: [
-            {
-              slug: 'image-l',
-              url: 'http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg',
-            },
-            {
-              slug: 'image-m',
-              url: 'http://images.amazon.com/images/P/0195153448.01.MZZZZZZZ.jpg',
-            },
-            {
-              slug: 'image-s',
-              url: 'http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg',
-            },
-          ],
-        },
-        {
-          code: 'c',
-          title: 'Classical Mythology',
-          author: 'Mark P. O. Morford',
-          publish_year: 2001,
-          publisher: 'Oxford University Press',
-          images: [
-            {
-              slug: 'image-l',
-              url: 'http://images.amazon.com/images/P/0195153448.01.LZZZZZZZ.jpg',
-            },
-            {
-              slug: 'image-m',
-              url: 'http://images.amazon.com/images/P/0195153448.01.MZZZZZZZ.jpg',
-            },
-            {
-              slug: 'image-s',
-              url: 'http://images.amazon.com/images/P/0195153448.01.THUMBZZZ.jpg',
-            },
-          ],
-        },
-      ]);
-
+          ]),
+        })),
+      }));
       (mongoose as any).connect = jest.fn();
       const app = new App([booksRoute]);
       return request(app.getServer()).get(`${booksRoute.path}`).expect(200);
