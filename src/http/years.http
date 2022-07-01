@@ -1,0 +1,14 @@
+# baseURL
+@baseURL = http://localhost:3000
+
+###
+# Find All Published Years
+GET {{ baseURL }}/publish-year
+
+###
+# Find Published Years
+GET {{ baseURL }}/publish-year?_i=2020
+
+###
+# Sort Published Years
+GET {{ baseURL }}/publish-year?$sort[total] = 1
