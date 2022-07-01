@@ -13,7 +13,8 @@
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix",
     "deploy:prod": "npm run build && pm2 start ecosystem.config.js --only prod",
-    "deploy:dev": "pm2 start ecosystem.config.js --only dev"
+    "deploy:dev": "pm2 start ecosystem.config.js --only dev",
+    "bench:wrk": "wrk -t12 -c20 -d30s http://localhost:3030/books"
   },
   "dependencies": {
     "class-transformer": "^0.5.1",
