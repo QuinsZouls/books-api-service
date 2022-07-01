@@ -33,6 +33,36 @@ paths:
             description: 'OK'
           500:
             description: 'Server Error'
+# [GET] Published years
+  /publish-year:
+    get:
+        tags:
+        - years
+        summary: Find All all published years
+        parameters:
+          - in: query
+            name: $skip
+            schema:
+              type: integer
+            required: false
+            description: Skip author position record
+          - in: query
+            name: $limit
+            schema:
+              type: integer
+            required: false
+            description: Limit number of records, set to -1 to get all records
+          - in: query
+            name: _id
+            schema:
+              type: string
+            required: false
+            description: Filter year
+        responses:
+          200:
+            description: 'OK'
+          500:
+            description: 'Server Error'
 # [GET] Books
   /books:
     get:
@@ -141,6 +171,15 @@ definitions:
       total:
         type: number
         description: number of total books
+  years:
+    type: object
+    properties:
+      _id:
+        type: number
+        description: year
+      total:
+        type: number
+        description: number of total books written in these year
   books:
     type: object
     required:
